@@ -30,7 +30,7 @@ print('Complete!')
 
 # If using git, initialise the rep.
 # The code in this following Jinja2 block only gets inserted when "git_usage" is set to Yes
-{% if cookiecutter.git_usage == "Yes" %}
+{% if cookiecutter.git_init == "Yes" %}
 print('Initialising Git repo and creating initial commit for %s ...' % PROJECT_NAME)
 subprocess.run(shlex.split('git init'))
 subprocess.run(shlex.split('git add *'))
