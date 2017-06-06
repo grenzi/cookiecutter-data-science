@@ -4,8 +4,8 @@ REQUIRED_PYTHON = "{{ cookiecutter.python_interpreter }}"
 
 
 def main():
-    system_major = sys.version_info.major
-    required_major = REQUIRED_PYTHON[0]
+    system_major = str(sys.version_info.major)
+    required_major = str(REQUIRED_PYTHON[0])
 
     if system_major != required_major:
         raise TypeError(
