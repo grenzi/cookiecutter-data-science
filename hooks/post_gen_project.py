@@ -12,6 +12,7 @@ PYTHON_VERSION = "{{cookiecutter.python_version}}"
 PYTHON_LIBRARIES = "{{cookiecutter.python_libraries}}"
 
 # Create the strings for commands to run, substituting with the values from cookiecutter
+{% if cookiecutter.create_virtualenv == "Yes" %}
 conda_install_cmd_tpl = "conda create -y -n {project_name} python={python_version} "
 conda_install_cmd = conda_install_cmd_tpl.format(project_name=PROJECT_NAME,
                                                  python_version=PYTHON_VERSION,
@@ -26,6 +27,7 @@ print('Finished installing conda environment for %s ' % PROJECT_NAME)
 print('Saving snapshot of conda environment to "environment.yml" ... ', end='')
 subprocess.run(shlex.split(conda_save_env_cmd))
 print('Complete!')
+{% endif %}
 
 
 # If using git, initialise the rep.

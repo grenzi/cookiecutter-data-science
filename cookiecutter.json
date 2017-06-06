@@ -7,5 +7,6 @@
     "python_interpreter": ["python"],
     "python_version": ["3.6"],
     "python_libraries":"./src/requirements.txt",
-    "git_init":"N"
+    "git_init":"Yes",
+    "create_virtualenv":"Yes"
 }
