@@ -35,6 +35,10 @@ clean:
 lint:
 	flake8 --exclude=lib/,bin/,docs/conf.py .
 
+## run juypter lab
+lab:
+	$(PYTHON_INTERPRETER)/Scripts/jupyter-lab-script.py $PWD
+
 ## Upload Data to S3
 sync_data_to_s3:
 	aws s3 sync data/ s3://$(BUCKET)/data/
