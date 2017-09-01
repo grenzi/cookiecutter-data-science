@@ -43,6 +43,7 @@ InteractiveShell.ast_node_interactivity = "all"
 ###########################################################################
 # sql stuff
 ###########################################################################
+#see https://github.com/catherinedevlin/ipython-sql
 import pyodbc
 from sql import *
 %load_ext sql
