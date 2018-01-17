@@ -1,5 +1,7 @@
+import pyodbc
+
 def getconn():
-    return pyodbc.connect(driver='{SQL Server Native Client 11.0}',server='localhost\SQL2014',database='dddmdb',trusted_connection='yes')
+    return pyodbc.connect(driver='{SQL Server Native Client 11.0}',server='localhost',database='dddmdb2',trusted_connection='yes')
 
 def queryToDict(sql):
     res=[]
