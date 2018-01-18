@@ -13,3 +13,5 @@ git+git://github.com/catherinedevlin/ipython-sql#egg=ipython_sql
 dotenv
 pandas
 numpy
+beakerx
+ipywidgets
