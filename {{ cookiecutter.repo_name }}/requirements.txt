@@ -10,6 +10,7 @@ seaborn
 git+git://github.com/simple-salesforce/simple-salesforce#egg=simple_salesforce
 git+git://github.com/cghall/salesforce-reporting#egg=salesforce_reporting
 git+git://github.com/catherinedevlin/ipython-sql#egg=ipython_sql
+git+git:https://github.com/pandas-profiling/pandas-profiling
 dotenv
 pandas
 numpy

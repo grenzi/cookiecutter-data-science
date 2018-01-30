@@ -1,0 +1,1 @@
+jupyter nbextension enable beakerx --py --sys-prefix
