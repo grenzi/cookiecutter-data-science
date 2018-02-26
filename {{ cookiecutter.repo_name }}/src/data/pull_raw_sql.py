@@ -6,7 +6,7 @@ from dotenv import find_dotenv, load_dotenv
 import pyodbc
 import csv
 
-logger = logging.getLogger(__name__ or 'pull_external')
+logger = logging.getLogger(__name__ or 'pull_raw_sql')
 
 def getconn():
     return pyodbc.connect(driver='{SQL Server Native Client 11.0}',server='localhost',database='dddmdb2',trusted_connection='yes')
@@ -18,7 +18,7 @@ def queryToCsv(sql, filename, include_headers=True):
     crsr = conn.cursor()
     rows = crsr.execute(sql)
     logger.info('saving file ' + filename)
-    with open(filename, 'w', newline='') as csvfile:
+    with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
         writer = csv.writer(csvfile)
         if include_headers:
             writer.writerow([x[0] for x in crsr.description])  # column headers
@@ -36,7 +36,7 @@ queries = [ ('one', 'select 1 as one') ]
 @click.command()
 def main():
     """ pulls data from sql server   """
-    logger = logging.getLogger(__name__ or 'pull_external')
+    logger = logging.getLogger(__name__ or 'pull_raw_sql')
     logger.info('running queries')
     for name,sql in queries:
         queryToCsv(sql, getexternalname(name))
