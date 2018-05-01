@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# from common import pandas_helpers
+# pandas_helpers.dfColFinder() etc
+import re
+
 def dfColFinder(df, findme):
     return [k for k in df.columns if findme.lower() in k.lower()]
 
@@ -34,8 +39,21 @@ def dfColsToCat(df, cols):
     for col in cols:
         df[col]=df[col].astype('category')
 
+def dfLowercaseCols(df, cols):
+    for col in cols:
+        df[col]=df[col].str.lower()
+
 def dfNanCounter(df):
     v = []
     for x in df.columns:
         v.append({'column' : x, 'null count':sum(pd.isnull(df[x])) })
     return(pd.DataFrame(v))
+
+def cleancolname(name):
+    rgx = re.compile('[(){}<>\[\].,+* \t]')
+    return rgx.sub('', name).strip()
+
+def cleanDataFrameColumnNames(df, prefix=''):
+    keys = [x for x in df.columns]
+    values = [prefix+cleancolname(x) for x in df.columns]
+    df.rename(index=str, columns=dict(zip(keys, values)), inplace=True)
