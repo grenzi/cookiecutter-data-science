@@ -1,9 +1,16 @@
+#pythonnet is the right one to use
+import clr 
+import pandas as pd
+from tqdm import tqdm
+clr.AddReference("System.Data")
+import System.Data.OleDb as ADONET
+
 class Dax:
-    def __init__(catalog, datasource):
+    def __init__(self, catalog, datasource):
         self.catalog = catalog
         self.datasource = datasource
 
-    def handle_oledb_field(f):
+    def handle_oledb_field(self, f):
         mytype=str(type(f))
         if mytype == "<class 'System.DBNull'>": 
             return None
@@ -15,12 +22,12 @@ class Dax:
             return str(f)
         raise "Unknown Type " + mytype   
         
-    def tidy_col_name(c):
+    def tidy_col_name(self, c):
         newname = c.replace('[', '_').replace(']', '_').replace(' ', '_')
         return newname.strip('_')
         
     def dax_to_dataframe(self, daxcmd):
-        if "connection" not in dax_to_dataframe.__dict__: dax_to_dataframe.connection = None
+        if "connection" not in Dax.__dict__: Dax.connection = None
         connStr = f"Provider=MSOLAP;Persist Security Info=True;Initial Catalog={self.catalog};Data Source={self.datasource}"
 
         if self.connection is None:
@@ -43,10 +50,13 @@ class Dax:
             #https://docs.microsoft.com/en-us/dotnet/api/system.typecode?view=netframework-4.7.2
             #but ints dont have them
             #rows[x] = list( [ reader[c] if reader[c].GetTypeCode() != 2 else None for c in columns] )
-            rows[x] = list ( [ handle_oledb_field(reader[c]) for c in columns ] )
+            rows[x] = list ( [ self.handle_oledb_field(reader[c]) for c in columns ] )
             
         #connection.Close()
-        df = pd.DataFrame.from_records(columns=[tidy_col_name(c) for c in columns], data=rows, coerce_float=True)
+        df = pd.DataFrame.from_records(columns=[self.tidy_col_name(c) for c in columns], data=rows, coerce_float=True)
         del rows
         del reader
         return df
+
+#d = Dax('Financial2', 'asazure://northcentralus.asazure.windows.net/hsbpm')
+#d.dax_to_dataframe('Evaluate row("a", 1)')
